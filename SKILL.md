@@ -1,6 +1,6 @@
 ---
 name: extract-formulas-from-pdf
-version: 0.2.0
+version: 0.2.1
 description: >
   Extract mathematical formulas and equations from PDF documents using MinerU-powered intelligent parsing. Pull inline and display math from academic papers, textbooks, technical manuals, and research articles into editable LaTeX, MathML, or Unicode format.
 
