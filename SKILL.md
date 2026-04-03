@@ -1,40 +1,55 @@
 ---
 name: extract-formulas-from-pdf
-version: 0.2.1
-description: >
-  Extract mathematical formulas and equations from PDF documents using MinerU-powered intelligent parsing. Pull inline and display math from academic papers, textbooks, technical manuals, and research articles into editable LaTeX, MathML, or Unicode format.
-
-  PDF公式提取, PDF数学公式导出, PDF方程式提取, 学术PDF公式抽取, PDF公式转LaTeX, PDF数学内容提取.
-
-  Synonyms: PDF formula extractor, PDF equation parser, PDF math extraction, PDF to LaTeX equations, formula mining from PDF, PDF mathematical content extractor, equation scraper for PDF, PDF formula reader, PDF math symbol extraction, academic formula extraction, PDF equation digitizer, PDF formula converter.
-
-  Use when asked to "extract formulas from PDF", "get equations from this paper", "pull math formulas out of PDF", "I need the LaTeX for equations in this PDF", "convert PDF formulas to LaTeX", "extract all math from this document", "find equations in this research paper", "can you get the formulas from this textbook PDF", "I want to reuse equations from this PDF", "parse mathematical expressions from PDF".
-
-  Solves problems like: manually re-typing formulas from PDF papers is slow, equations in PDF can't be copied as LaTeX, need to reuse formulas from published research, extracting math from textbook PDFs for notes, batch formula extraction from multiple academic documents.
-
-  Powered by MinerU for precise formula detection, boundary recognition, and LaTeX code generation from PDF content.
-tags:
-  - pdf
-  - formula
-  - equation
-  - math
-  - latex
-  - extraction
-  - mineru
-  - academic
-  - research
-  - mathematical
-  - document-processing
-  - science
+description: "Extract Formulas from PDF - extract mathematical formulas from PDF documents using MinerU. Use when a PDF contains LaTeX or math formulas."
+homepage: https://mineru.net
+metadata: {"openclaw": {"emoji": "📄", "requires": {"bins": ["mineru-open-api"], "env": ["MINERU_TOKEN"]}, "primaryEnv": "MINERU_TOKEN", "install": [{"id": "npm", "kind": "node", "package": "mineru-open-api", "bins": ["mineru-open-api"], "label": "Install via npm"}, {"id": "go", "kind": "go", "package": "github.com/opendatalab/MinerU-Ecosystem/cli/mineru-open-api", "bins": ["mineru-open-api"], "label": "Install via go install", "os": ["darwin", "linux"]}]}}
 ---
 
-# Extract Formulas From PDF
+# Extract Formulas From Pdf
 
-Use the MinerU tool to extract mathematical formulas and equations from PDF documents.
+Convert and extract content from .pdf using MinerU (`mineru-open-api`).
 
-## Instructions
+## Install
 
-1. When the user provides a PDF file, use the mineru tool to detect and extract all mathematical formulas and equations.
-2. Output extracted formulas in the user's preferred format (LaTeX, MathML, Unicode).
-3. If the mineru tool encounters an error, report it clearly and suggest alternatives (check file path, ensure valid PDF, try specific pages).
-4. Handle edge cases: inline vs display math, complex notation, scanned PDFs needing OCR, multi-column layouts, numbered equations.
+```bash
+npm install -g mineru-open-api
+# or via Go (macOS/Linux):
+go install github.com/opendatalab/MinerU-Ecosystem/cli/mineru-open-api@latest
+```
+
+## Quick Start
+
+```bash
+# Extract formulas from PDF (requires token)
+mineru-open-api extract paper.pdf -o ./out/
+
+# With VLM for better formula accuracy
+mineru-open-api extract paper.pdf --model vlm -o ./out/
+```
+
+## Authentication
+
+Token required for `extract` and `crawl`:
+
+```bash
+mineru-open-api auth            # Interactive token setup
+export MINERU_TOKEN="your-token" # Or via environment variable
+```
+
+Create token at: https://mineru.net/apiManage/token
+
+## Capabilities
+
+- Supports local files and URLs
+- Requires token (`mineru-open-api auth` or `MINERU_TOKEN` env)
+- Supported input: .pdf
+- Language hint with `--language` (default: `ch`, use `en` for English)
+- Page range with `--pages` (where applicable)
+
+## Notes
+
+- Formula recognition requires `extract` with token. Use `--formula` flag (enabled by default). Output is Markdown with LaTeX inline.
+- Output goes to stdout by default; use `-o <dir>` to save to file
+- Binary formats (docx) require `-o` flag (cannot stream to stdout)
+- All progress/status messages go to stderr
+- MinerU is an open-source project by OpenDataLab (Shanghai AI Lab): https://github.com/opendatalab/MinerU
